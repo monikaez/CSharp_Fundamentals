@@ -1,0 +1,12 @@
+//Create a program, which sums the ASCII codes of n characters and prints the sum on the console
+//•	On the first line, you will receive n – the number of lines, which will follow
+//•	On the next n lines – you will receive letters from the Latin alphabet
+int number = int.Parse(Console.ReadLine());
+int finalSum = 0;
+for (int i = 0; i < number; i++)
+{
+    char letter = char.Parse(Console.ReadLine());
+    finalSum += (int)letter;
+}
+Console.WriteLine($"The sum equals: {finalSum}");
+

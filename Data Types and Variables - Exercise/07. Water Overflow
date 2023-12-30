@@ -1,0 +1,26 @@
+//You have a water tank with a capacity of 255 liters.
+//On the next n lines, you will receive liters of water,
+//which you have to pour into your tank.
+//If the capacity is not enough, print "Insufficient capacity!"
+//and continue reading the next line. On the last line, print the liters in the tank.
+//input
+//On the first line, you will receive n – the number of lines, which will follow
+//On the next n lines, you will receive quantities of water, which you have to pour into the tank
+int n = int.Parse(Console.ReadLine());
+const int CAPACITY = 255;
+int totalQuantity = CAPACITY;
+for (int i = 0; i < n; i++)
+{
+    int currentQuantity = int.Parse(Console.ReadLine());
+	if (totalQuantity-currentQuantity >= 0)
+	{
+		totalQuantity -= currentQuantity;
+	}
+	else
+	{
+		Console.WriteLine("Insufficient capacity!");
+	}
+}
+int totalFilledQuantity = CAPACITY - totalQuantity;
+Console.WriteLine(totalFilledQuantity);
+
