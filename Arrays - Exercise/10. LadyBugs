@@ -1,0 +1,76 @@
+using System;
+using System.Linq;
+
+namespace _10.LadyBugs
+{
+    class Program
+    {
+        static void Main(string[] args)
+        //input
+        //•	On the first line, you will receive an integer - the size of the field
+        //•	On the second line, you will receive the initial indexes of all ladybugs separated by a blank space
+        //•	On the next lines, until you get the "end" command you will receive commands in the format: "{ladybug index} {direction} {fly length}"
+
+        {
+            int filedSize = int.Parse(Console.ReadLine());//големина на полето 
+            int[] ladyBugField = new int[filedSize];//масив калинки
+            string[] occupiedIndexes = Console.ReadLine().Split();
+
+
+            foreach (var ladyBugs in occupiedIndexes)
+            {
+                int currentIndex = int.Parse(ladyBugs);
+                if (currentIndex >= 0 && currentIndex < filedSize)
+                {
+                    ladyBugField[currentIndex] = 1;
+                }
+            }
+            string[] commands = Console.ReadLine().Split();
+
+            while (commands[0] != "end")
+            {
+               int currentIndex = int.Parse(commands[0]);
+                bool isFirst = true;
+                while (currentIndex >= 0 && currentIndex < filedSize && ladyBugField[currentIndex] != 0)
+                {
+                    if (isFirst)
+                    {
+                        ladyBugField[currentIndex] = 0;
+                        isFirst = false;
+                    }
+                    string direction = commands[1];
+                    int flyghtlength = int.Parse(commands[2]);//до кой индекс трябва да лети 
+
+                    if (direction == "left")
+                    {
+                        currentIndex -= flyghtlength;
+                        if (currentIndex >= 0 && currentIndex < filedSize)
+                        {
+                            if (ladyBugField[currentIndex] == 0)
+                            {
+                                ladyBugField[currentIndex] = 1;
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        currentIndex += flyghtlength;
+                        if (currentIndex >= 0 && currentIndex < filedSize)
+                        {
+                            if (ladyBugField[currentIndex] == 0)
+                            {
+                                ladyBugField[currentIndex] = 1;
+                                break;
+                            }
+                        }
+                    }
+                }
+                commands = Console.ReadLine().Split();
+
+            }
+            Console.WriteLine(string.Join(" ", ladyBugField));
+
+        }
+    }
+}

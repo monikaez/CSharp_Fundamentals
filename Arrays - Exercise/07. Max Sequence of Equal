@@ -1,0 +1,44 @@
+using System;
+using System.Linq;
+
+namespace _07._Max_Sequence_of_Equal_Elements_1
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+        //Създайте програма, която намира най-дългата последователност от равни елементи
+        //в масив от цели числа.
+         //Ако в масива има няколко еднакви последователности, отпечатайте най-лявата.
+         int[] numbers = Console.ReadLine().Split().Select(int.Parse).ToArray();
+            //2 1 1 2 3 3 2 2 2 1
+            int count = 0;
+            int maxSequance = 0;
+            int startSequence = 0;
+
+            for (int i = 0; i < numbers.Length-1; i++)
+            {
+                if (numbers[i] == numbers[i+1])
+                {
+                    count++;
+                    if (count > maxSequance)
+                    {
+                        maxSequance = count;
+                        startSequence = i - count;
+                    }
+                }
+                else
+                {
+                    count = 0;
+                }
+            }
+            for (int i = startSequence + 1; i <= startSequence + maxSequance + 1; i++)
+            {
+                Console.Write(numbers[i]+" ");
+            }
+            Console.WriteLine();
+
+
+        }
+    }
+}

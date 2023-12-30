@@ -1,0 +1,15 @@
+//Create a program that receives an array and several rotations that you have to perform.
+//from the front to the back. Print the resulting array.
+int[] array = Console.ReadLine().Split().Select(int.Parse).ToArray();
+int rotations = int.Parse(Console.ReadLine());
+
+for (int rotation = 0; rotation < rotations; rotation++)
+{
+    int temp = array[0];
+    for (int iteration = 0; iteration < array.Length-1; iteration++)
+    {
+        array[iteration] = array[iteration+1];
+    }
+    array[array.Length-1] = temp;
+}
+Console.WriteLine(string.Join(" ", array));

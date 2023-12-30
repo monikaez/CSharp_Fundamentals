@@ -1,0 +1,17 @@
+//Create a program that prints out all common elements in two arrays.
+//You have to compare the elements of the second array to the elements of the first.
+string[] arrayOne= Console.ReadLine().Split();
+string[] arrayTwo= Console.ReadLine().Split();
+
+foreach (string elementTwo in arrayTwo)
+{
+	for (int i = 0; i < arrayOne.Length; i++)
+	{
+		string elementOne = arrayOne[i];
+		if (elementTwo== elementOne)
+		{
+			Console.Write(elementOne+" ");
+			break;
+		}
+	}
+}
