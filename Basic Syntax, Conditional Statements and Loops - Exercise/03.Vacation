@@ -1,0 +1,85 @@
+// See https://aka.ms/new-console-template for more information
+//•	A count of people who are going on vacation.
+//•	Type of the group (Students, Business or Regular).
+//•	The day of the week which the group will stay on (Friday, Saturday or Sunday).
+//          Friday Saturday	Sunday
+//Students	8.45	9.80	10.46
+//Business	10.90	15.60	16
+//Regular	15	    20	    22.50
+int countOfPeople = int.Parse(Console.ReadLine());
+string typeOfGroup = Console.ReadLine();
+string day = Console.ReadLine();
+double pricePerPerson = 0;
+double totalSum = 0;
+
+if (typeOfGroup == "Students")
+{
+	if (day == "Friday")
+	{
+		pricePerPerson = 8.45;
+	}
+	else if (day == "Saturday")
+	{
+		pricePerPerson = 9.80;
+	}
+	else if (day == "Sunday")
+	{
+		pricePerPerson = 10.46;
+	}
+   // totalSum = countOfPeople* pricePerPerson;
+    //•	For Students – if the group is 30 or more people, you should reduce the total price by 15%.
+    if (countOfPeople>=30)
+    {
+        pricePerPerson *= 0.85;
+    }
+}
+else if (typeOfGroup =="Business")
+{
+    if (day == "Friday")
+    {
+        pricePerPerson = 10.90;
+    }
+    else if (day == "Saturday")
+    {
+        pricePerPerson = 15.60;
+    }
+    else if (day == "Sunday")
+    {
+        pricePerPerson = 16;
+    }
+    //totalSum = countOfPeople * pricePerPerson;
+    //•	For Business – if the group is 100 or more people, 10 of the people stay for free.
+    if (countOfPeople>=100)
+    {
+        countOfPeople -= 10;
+    }
+}
+else if (typeOfGroup == "Regular")
+{
+    if (day == "Friday")
+    {
+        pricePerPerson = 15;
+    }
+    else if (day == "Saturday")
+    {
+        pricePerPerson = 20;
+    }
+    else if (day == "Sunday")
+    {
+        pricePerPerson = 22.50;
+    }
+    //•	For Regular – if the group is between 10 and 20  people (both inclusively),
+    //reduce the total price by 5%.
+    // totalSum = countOfPeople * pricePerPerson;
+    if (countOfPeople>=10 && countOfPeople<=20)
+    {
+        totalSum *= 0.95;
+    }
+    
+}
+totalSum = countOfPeople * pricePerPerson;
+Console.WriteLine($"Total price: {totalSum:f2}");
+
+
+
+

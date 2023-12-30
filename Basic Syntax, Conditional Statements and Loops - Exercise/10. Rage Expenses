@@ -1,0 +1,54 @@
+//Като играч на MOBA Challenger, Петър има лошия навик да разбива компютъра си,
+//когато загуби игра и да се откаже от ярост.
+//Неговата настройка за игри се състои от слушалки, мишка, клавиатура и дисплей.
+//Ще получите броя на загубените игри на Петър.
+//Всяка втора загубена игра, Петър изхвърля слушалките си.
+//Всяка трета загубена игра, Петър разбива мишката си.
+//Когато Петър изхвърля и мишката, и слушалките си в една и съща загубена игра,
+//той изхвърля и клавиатурата си.
+//Всеки втори път, когато изхвърля клавиатурата си, той изхвърля и дисплея си.
+//Ще получите цената на всеки артикул в неговата настройка за игри.
+//Изчислете разходите му за ярост за подновяване на игралното му оборудване.
+
+//On the first input line – lost games count – integer in the range [0…1000].
+//On the second line – headset price – floating-point number in the range [0…1000].
+//On the third line – mouse price – floating-point number in the range [0…1000].
+//On the fourth line – keyboard price – floating-point number in the range [0…1000].
+//On the fifth line – display price – floating-point number in the range [0… 1000].
+int countLostGames = int.Parse(Console.ReadLine());
+double priceHeadset = double.Parse(Console.ReadLine());
+double priceMouse = double.Parse(Console.ReadLine());
+double priceKeyboard = double.Parse(Console.ReadLine());
+double priceDisplay = double.Parse(Console.ReadLine());
+
+int counterBrokenHeadset = 0;
+int counterBrokenMouse = 0;
+int counterBrokenKeyboard = 0;
+
+for (int i= 1; i <= countLostGames; i++)
+{
+	if (i % 2==0 && i % 3==0)
+	{
+		counterBrokenHeadset++;
+		counterBrokenKeyboard++;
+		counterBrokenMouse++;
+	}
+	else if (i % 2==0)
+	{
+		counterBrokenHeadset++;
+	}
+	else if (i % 3==0)
+	{
+		counterBrokenMouse++;
+	}
+}
+int counterBrokenDisplay = counterBrokenKeyboard / 2;
+double moneyForKeyboard = counterBrokenKeyboard * priceKeyboard;
+double moneyForMouse = counterBrokenMouse * priceMouse;
+double moneyForHeadset = counterBrokenHeadset * priceHeadset;
+double moneyForDisplay = counterBrokenDisplay * priceDisplay;
+double totalMoney = moneyForDisplay + moneyForHeadset + moneyForKeyboard + moneyForMouse;
+
+Console.WriteLine($"Rage expenses: {totalMoney:f2} lv.");
+
+

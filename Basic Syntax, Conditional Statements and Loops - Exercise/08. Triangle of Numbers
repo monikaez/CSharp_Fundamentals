@@ -1,0 +1,12 @@
+// See https://aka.ms/new-console-template for more information
+
+//Write a program, which receives a number – n and prints a triangle from 1 to n.
+int num = int.Parse(Console.ReadLine());
+for (int i = 1; i <= num; i++)
+{
+	for (int k = 0; k < i; k++)
+	{
+		Console.Write($"{i.ToString()} ");
+	}
+    Console.WriteLine();
+}
