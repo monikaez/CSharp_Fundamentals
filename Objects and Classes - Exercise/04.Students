@@ -1,0 +1,51 @@
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+
+namespace _04.Students
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            int countOfStudents = int.Parse(Console.ReadLine());//n - the count of all students.
+            List<Student> students = new List<Student>();
+            for (int i = 0; i < countOfStudents; i++)
+            {
+                string[] currStudent = Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries).ToArray();
+                string firstName = currStudent[0];
+                string lastName = currStudent[1];
+                double grade = double.Parse(currStudent[2]);
+                Student student = new Student(firstName, lastName, grade);
+                students.Add(student);
+            }
+            foreach (var student in students.OrderByDescending(x=>x.Grade))
+            { 
+                Console.WriteLine(student);
+            }
+
+        }
+
+        
+    }
+    class Student
+    {
+        public Student(string firstName, string lastName, double grade)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            Grade = grade;
+        }
+
+        public string FirstName { get; set; }//First name (String)
+        public string LastName { get; set; }//Last name(String)
+        public double Grade { get; set; }//Grade(a floating-point number)
+
+        public override string ToString()
+        {
+            return $"{FirstName} {LastName}: {Grade:f2}";
+        }
+
+    }
+}

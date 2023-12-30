@@ -1,0 +1,110 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
+
+namespace _05.TeamworkProjects
+{
+    public class Program
+    {
+        static void Main(string[] args)
+        {
+            int numberOfTeams = int.Parse(Console.ReadLine());//the count of the teams you will have to registe
+            List<Team> teams = new List<Team>();
+            for (int i = 0; i < numberOfTeams; i++)
+            {
+                string[] inputTokens = Console.ReadLine().Split("-", StringSplitOptions.RemoveEmptyEntries).ToArray();
+                //You will be given a user and a team, separated with "-"
+                string user = inputTokens[0];
+                string teamName = inputTokens[1];
+                if (teams.Select(x => x.Name).Contains(teamName))
+                {//•	If а user tries to create a team more than once, a message should be displayed: 
+                 // -"Team {teamName} was already created!"
+                    Console.WriteLine($"Team {teamName} was already created!");
+                    continue;
+                }
+                if (teams.Select(x => x.Creator).Contains(user))
+                {//•	A creator of a team cannot create another team – the following message should be thrown: 
+                 // -"{user} cannot create another team!"
+                    Console.WriteLine($"{user} cannot create another team!");
+                    continue;
+                }
+                Team currTeam = new Team(teamName, user);
+                teams.Add(currTeam);
+
+                //"Team {teamName} has been created by {user}!"
+                Console.WriteLine($"Team {teamName} has been created by {user}!");
+            }
+            string input;
+            while ((input = Console.ReadLine()) != "end of assignment")
+            {//Next, you will receive а user with a team, separated with "->"
+                string[] inputTokens = input.Split("->", StringSplitOptions.RemoveEmptyEntries).ToArray();
+                string teamMember = inputTokens[0];
+                string teamName = inputTokens[1];
+                Team team = teams.FirstOrDefault(x => x.Name == teamName);
+                if (team is null)
+                {//•	If а user tries to join a non-existent team, a message should be display
+                    Console.WriteLine($"Team {teamName} does not exist!");
+                    continue;
+                }
+                if (team.Creator == teamMember || teams.SelectMany(x=>x.Members).Contains(teamMember))
+                {//•	A member of a team cannot join another team – the following message should be thrown:
+                    //-"Member {user} cannot join team {team Name}!"
+
+                    Console.WriteLine($"Member {teamMember} cannot join team {teamName}!");
+                    continue;
+                }
+                team.Members.Add(teamMember);
+            }
+            List<Team> orderedTeamsByMembersCountAndName = teams
+                .Where(x => x.Members.Count != 0)
+                .OrderByDescending(x => x.Members.Count)
+                .ThenBy(x => x.Name)
+                .ToList();
+
+            List<Team> disbandTeams = teams
+                .Where(x => x.Members.Count == 0)
+                .OrderBy(x => x.Name)
+                .ToList();
+
+            foreach (Team team in orderedTeamsByMembersCountAndName)
+            {
+                Console.WriteLine(team);
+            }
+            Console.WriteLine("Teams to disband:");
+            foreach (var team in disbandTeams)
+            {
+                Console.WriteLine(team.Name); 
+            }
+
+        }
+    }
+    public class Team
+    {
+        public Team(string name, string creator)
+        {
+            Name = name;
+            Creator = creator;
+        }
+
+        public string Name { get; set; }
+        public string Creator { get; set; }
+
+        public List<string> Members { get; set; } = new List<string>();
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            
+            sb.AppendLine(Name);//"{teamName}
+            sb.AppendLine($"- {Creator}");//- { creator}
+
+            List<string> orderMembers = Members.OrderBy(x => x).ToList();
+            foreach (var member in orderMembers)
+            {
+                sb.AppendLine($"-- {member}");//-- { member}…"
+            }
+            return sb.ToString().TrimEnd('\n');
+        }
+    }
+}
