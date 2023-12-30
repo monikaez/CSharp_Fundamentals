@@ -1,0 +1,71 @@
+//You will receive a single input line, containing strings, separated by spaces. The strings may contain any ASCII character except whitespace. Then you will begin receiving commands in one of the following formats:
+//•	merge { startIndex} { endIndex}
+//•	divide { index} { partitions}
+//Every time you receive the merge command, you must merge all elements from the startIndex to the endIndex. In other words, you should concatenate them. 
+//Example: { abc, def, ghi} -> merge 0 1-> { abcdef, ghi}
+//If any of the given indexes is out of the array, you must take only the range that is inside the array and merge it.
+//Every time you receive the divide command, you must divide the element at the given index, into several small substrings with equal length. The count of the substrings should be equal to the given partitions. 
+//Example: { abcdef, ghi, jkl} -> divide 0 3-> { ab, cd, ef, ghi, jkl}
+//If the string cannot be exactly divided into the given partitions, make all partitions except the last with equal lengths and make the last one – the longest. 
+//Example: { abcd, efgh, ijkl} -> divide 0 3-> { a, b, cd, efgh, ijkl}
+//The input ends when you receive the command "3:1". At that point, you must print the resulting elements, joined by a space.
+//Input
+//•	The first input line will contain the array of data.
+//•	On the next several input lines, you will receive commands in the format specified above.
+//•	The input ends when you receive the command "3:1".
+//Output
+//•	As output, you must print a single line containing the elements of the array, joined by a space.
+//Constrains
+//•	The strings in the array may contain any ASCII character except whitespace.
+//•	The startIndex and the endIndex will be in the range [-1000…1000].
+//•	The endIndex will always be greater than the startIndex.
+//•	The index in the divide command will always be inside the array.
+//•	The partitions will be in the range [0…100].
+//•	Allowed working time/memory: 100ms / 16MB.
+List<string> myList = Console.ReadLine().Split().ToList();
+while (true)
+{
+    string[] cmd = Console.ReadLine().Split();
+	if (cmd[0] == "3:1") break;
+    
+    int startIndex = int.Parse(cmd[1]);
+    int endIndex = int.Parse(cmd[2]);
+    string concatedWord = string.Empty;
+
+    if (endIndex > myList.Count - 1 || endIndex < 0) endIndex = myList.Count - 1;
+    if (startIndex < 0 || startIndex >= myList.Count) startIndex = 0;
+
+    if (cmd[0] == "merge")//merge { startIndex} { endIndex}
+    {
+        for (int i = startIndex; i <= endIndex; i++)
+        {
+            concatedWord += myList[i];
+        }
+        myList.RemoveRange(startIndex, endIndex - startIndex + 1);
+        myList.Insert(startIndex, concatedWord);
+
+    }
+    else if (cmd[0] == "divide")//divide { index} { partitions}
+    {
+        List<string> divideList = new List<string>();
+        int divide = int.Parse(cmd[2]);
+        string word = myList[startIndex];
+        myList.RemoveAt(startIndex);
+        int parts = word.Length / divide;
+
+        for (int i = 0; i < divide; i++)
+        {
+            if (i == divide-1)
+            {
+                divideList.Add(word.Substring(i * parts));
+            }
+            else
+            {
+                divideList.Add(word.Substring(i * parts,parts));
+            }
+        }
+        myList.InsertRange(startIndex, divideList);
+    }
+}
+Console.WriteLine(string.Join(" ",myList));
+

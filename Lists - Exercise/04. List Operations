@@ -1,0 +1,79 @@
+//The first input line will hold a list of integers.
+//Until we receive the "End" command,
+//we will be given operations we have to apply to the list.
+//The possible commands are:
+//•	Add
+//{ number} – add the given number to the end of the list
+//•	Insert {number} { index} – insert the number at the given index
+//•	Remove {index} – remove the number at the given index
+//•	Shift left {count} – first number becomes last.
+//This has to be repeated the specified number of times
+//•	Shift right {count} – last number becomes first.
+//To be repeated the specified number of times
+//Note: the index given may be outside of the bounds of the array.
+//In that case print: "Invalid index".
+
+List<int> numbers = Console.ReadLine().Split(" ",StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToList();
+string input = Console.ReadLine();
+
+while (input != "End")
+{
+    string[] command = input.Split(" ", StringSplitOptions.RemoveEmptyEntries);
+  
+    string commandType = command[0];
+    switch (commandType)
+    {
+        case "Add"://Add 5
+            int numberAdd = int.Parse(command[1]);
+            numbers.Add(numberAdd);
+            break;
+        case "Insert"://	Insert {number} { index}
+            int indexInsert = int.Parse(command[2]);
+            int numberInsert = int.Parse(command[1]);
+            if (indexInsert >=0 && indexInsert <= numbers.Count-1)
+            {
+                numbers.Insert(indexInsert, numberInsert);
+            }
+            else
+            {
+                Console.WriteLine("Invalid index");
+            }
+            break;
+        case "Remove"://Remove {index}
+            int indexRemove = int.Parse(command[1]);
+            if (indexRemove >= 0 && indexRemove <= numbers.Count-1)
+            {
+                numbers.RemoveAt(indexRemove);
+            }
+            else
+            {
+                Console.WriteLine("Invalid index");
+            }
+            break;
+        case "Shift"://Shift left {count} 
+            int count = int.Parse(command[2]);
+            if (command[1] == "left")//18 43 21 20 12=>//count=2 //21 20 12 18 43
+            {
+                for (int i = 0; i < count; i++)
+                {
+                    int firstNum = numbers[0];
+                    numbers.RemoveAt(0);
+                    numbers.Add(firstNum);
+                }
+
+            }
+            else if (command[1] == "right")//Shift right {count}
+            {
+                for (int i = 0; i < count; i++)
+                {
+                    int lastNum = numbers[numbers.Count - 1];
+                    numbers.RemoveAt(numbers.Count - 1);
+                    numbers.Insert(0, lastNum);
+                }
+            }
+            break;
+    }
+    input = Console.ReadLine();
+   
+}
+Console.WriteLine(string.Join(" ", numbers));

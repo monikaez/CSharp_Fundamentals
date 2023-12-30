@@ -1,0 +1,16 @@
+List<int> numbers = Console.ReadLine().Split().Select(int.Parse).ToList();
+string line = Console.ReadLine();
+while (line != "end")
+{
+    string[] tokens = line.Split();//•	Delete {element}//•	Insert {element} {position} 
+    string command = tokens[0];//delete
+    int element = int.Parse(tokens[1]);
+    if (command == "Delete") numbers.RemoveAll(el => el == element);
+    else if (command == "Insert")
+    {
+        int index = int.Parse(tokens[2]);
+        numbers.Insert(index, element);
+    }
+    line = Console.ReadLine();
+}
+Console.WriteLine(string.Join(" ",numbers));

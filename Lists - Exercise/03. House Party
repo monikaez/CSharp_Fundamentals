@@ -1,0 +1,30 @@
+//the number of commands that will follow
+//On the next lines, you are going to receive some of the following:  "{name} is going!"
+//•	You have to add the person, if they are not on the guestlist already.
+//•	If the person is on the list print the following to the console:
+//    "{name} is already in the list!"
+//"{name} is not going!"
+//•	You have to remove the person, if they are on the list. 
+//•	If not, print out: "{name} is not in the list!"
+//Finally, print all of the guests, each on a new line.
+int n = int.Parse(Console.ReadLine());
+List<string> questList = new List<string>();
+for (int i = 0; i < n; i++)
+{
+    string[] input = Console.ReadLine().Split();
+    string name = input[0];
+    if (input.Length == 3)//Allie is going!
+    {
+        if (questList.Contains(name)) Console.WriteLine($"{name} is already in the list!"); 
+        else questList.Add(name);
+    }
+    else if (input.Length == 4)//John is not going!
+    {
+        if (questList.Contains(name)) questList.Remove(name);
+         else Console.WriteLine($"{name} is not in the list!");
+    }
+}
+Console.WriteLine(string.Join(Environment.NewLine, questList));
+
+
+

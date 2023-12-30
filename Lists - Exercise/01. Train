@@ -1,0 +1,33 @@
+List<int> waggons = Console.ReadLine().Split().Select(int.Parse).ToList();
+int maxCapacity = int.Parse(Console.ReadLine());
+string command = Console.ReadLine();
+
+while (command != "end")
+{
+    string[] tokens = command.Split();//•	Add {passengers} когато командата е от две думи 
+	if (tokens.Length == 2)
+	{
+		int currentWaggon = int.Parse(tokens[1]);//четем пътницити
+		waggons.Add(currentWaggon);//добавяме пътниците
+	}
+	else//ако е само една дума командата 
+	{
+		int currentCapacity = int.Parse(tokens[0]);//•	{ passengers}
+        FindWaggon(waggons, maxCapacity, currentCapacity); //правим метод с Ctrl + .
+	}
+	command = Console.ReadLine();//четем нова команда 
+
+}
+Console.WriteLine(string.Join(" ", waggons));
+void FindWaggon(List<int> waggons, int maxCapacity, int currentCapacity)//метода 
+{
+	for (int i = 0; i < waggons.Count; i++)
+	{
+		if (waggons[i]+currentCapacity<=maxCapacity)//ако текущия вагон + пътниците са по малко от макс капацитет 
+		{
+			waggons[i] += currentCapacity;//добавяме пътниците в вагона 
+			break;
+		}
+	}
+}
+
