@@ -1,0 +1,29 @@
+using System;
+
+namespace _02.VowelsCount
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            //Create a method that receives a single string
+            //and prints out the number of vowels contained in it.
+            string inputText = Console.ReadLine().ToLower();
+
+            SearchForVowels(inputText);
+
+        }
+        static void SearchForVowels(string text)
+        {
+            int count = 0;
+            foreach (char vowels in text)
+            {
+                if ("aouie".Contains(vowels))
+                {
+                    count++;
+                }
+            }
+            Console.WriteLine(count);
+        }
+    }
+}

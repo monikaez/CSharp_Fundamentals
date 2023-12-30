@@ -1,0 +1,27 @@
+using System;
+
+namespace _03.CharactersinRange
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            // Create a method that receives two characters
+            //and prints all the characters between them according to ASCII(on a single line).
+            char firstChar = char.Parse(Console.ReadLine());
+            char secondChar = char.Parse(Console.ReadLine());
+            CharactersInRange(firstChar,secondChar);
+        }
+        static void CharactersInRange(char firstChar, char secondChar)
+        {
+            int startChar =Math.Min(firstChar,secondChar);
+            int endChar = Math.Max(firstChar, secondChar);
+
+            for (int i = startChar+1; i < endChar; i++)
+            {
+                Console.Write((char)i+" ");
+            }
+            Console.WriteLine();
+        }
+    }
+}

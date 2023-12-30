@@ -1,0 +1,30 @@
+using System;
+using System.Runtime.InteropServices;
+
+namespace _07.NxNMatrix
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            //Create a method that receives a single integer n and prints an NxN matrix using this number as a filler.
+
+            int input = int.Parse(Console.ReadLine());
+            MatrixCreator(input);
+
+        }
+
+        private static void MatrixCreator(int input)
+        {
+            for (int rows = 0; rows < input; rows++)
+            {
+                for (int cols = 0; cols < input; cols++)
+                {
+                    Console.Write(input + " ");
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine();
+        }
+    }
+}
