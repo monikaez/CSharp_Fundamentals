@@ -1,0 +1,45 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace _03.Numbers
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            //Write a program to read a sequence of integers and find
+            //and print the top 5 numbers greater than the average value in the sequence,
+            //sorted in descending order.
+            List<double> numbers = Console.ReadLine().Split().Select(double.Parse).ToList();
+            List<double> biggers = new List<double>();
+            double average = numbers.Sum() / numbers.Count;
+            for (int i = 0; i < numbers.Count; i++)
+            {
+                if (numbers[i]> average)
+                {
+                    biggers.Add(numbers[i]);
+                }
+            }
+            biggers.Sort();
+            biggers.Reverse();
+            if (biggers.Count == 0)
+            {
+                Console.WriteLine("No");
+            }
+            else if (biggers.Count > 5)
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    Console.Write(biggers[i] + " ");
+                }
+            }
+            else
+            {
+                Console.WriteLine(string.Join(" ", biggers));
+            }
+
+
+        }
+    }
+}

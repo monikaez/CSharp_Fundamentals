@@ -1,0 +1,30 @@
+using System.Text;
+
+string input = Console.ReadLine();
+StringBuilder result = new StringBuilder(input);
+
+string command = Console.ReadLine();
+while (command!="Decode")
+{
+    string[] splitedCommand = command.Split("|");
+	if (splitedCommand[0]=="ChangeAll")//•	"ChangeAll {substring} {replacement}":
+    {
+        result.Replace(splitedCommand[1], splitedCommand[2]);
+	}
+	else if (splitedCommand[0]=="Insert")//•	"Insert {index} {value}":
+    {
+        int index = int.Parse(splitedCommand[1]);
+        string value = splitedCommand[2];
+        result.Insert(index, value);
+    }
+    else if (splitedCommand[0] == "Move")//•	"Move {number of letters}":
+    {
+        int number = int.Parse(splitedCommand[1]);
+        string substring = result.ToString().Substring(0, number);
+        result.Remove(0, number);
+        result.Append(substring);
+    }
+    command = Console.ReadLine();
+}
+Console.WriteLine($"The decrypted message is: {result}");
+

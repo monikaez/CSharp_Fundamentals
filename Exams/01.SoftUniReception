@@ -1,0 +1,28 @@
+using System;
+
+namespace _01.SoftUniReception
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int firtsEmploye = int.Parse(Console.ReadLine());
+            int secondEmploye = int.Parse(Console.ReadLine());
+            int thirdEmploye = int.Parse(Console.ReadLine());
+            int students = int.Parse(Console.ReadLine());
+
+            int sumAnswers = firtsEmploye + secondEmploye + thirdEmploye;
+            int time = 0;
+
+            while (students > 0)
+            {
+                time++;
+                if (time % 4 == 0) continue;
+                else students -= sumAnswers;
+            }
+            Console.WriteLine($"Time needed: {time}h.");
+
+        }
+
+    }
+}
